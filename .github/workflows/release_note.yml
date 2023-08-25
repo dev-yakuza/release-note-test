@@ -11,9 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: environment variables
+      - name: vars
         run: |
           echo ${{ vars.PERSONAL_ACCESS_TOKEN }}
+      - name: secrets
+        run: |
           echo ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Get previous tag
