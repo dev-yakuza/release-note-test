@@ -11,6 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: environment variables
+        run: |
+          echo ${{ vars.PERSONAL_ACCESS_TOKEN }}
+          echo ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
       - name: Get previous tag
         id: pre_tag
         run: |
@@ -21,7 +26,7 @@ jobs:
             | jq .tag_name \
             | sed 's/"//g')" >> $GITHUB_OUTPUT
 
-      - name: Prvious tag
+      - name: Previous tag
         run: |
           echo "${{ steps.pre_tag.outputs.version }}"
 
