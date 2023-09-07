@@ -21,17 +21,9 @@ jobs:
             | jq .tag_name \
             | sed 's/"//g')" >> $GITHUB_OUTPUT
 
-      - name: Previous tag
-        run: |
-          echo "${{ steps.pre_tag.outputs.version }}"
-
       - name: Generate release tag
         id: release_tag
         run: echo "version=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-
-      - name: Release tag
-        run: |
-          echo "${{ steps.release_tag.outputs.version }}"
 
       - name: Generate release note
         id: release_note
@@ -45,10 +37,6 @@ jobs:
             -d '{"tag_name":"${{ steps.release_tag.outputs.version }}","target_commitish":"main","previous_tag_name":"${{ steps.pre_tag.outputs.version }}"}' \
             | jq .body \
             | sed 's/"//g')" >> $GITHUB_OUTPUT
-
-      - name: Release note
-        run: |
-          echo "${{ steps.release_note.outputs.note }}"
 
       - name: Create Release
         run: |
